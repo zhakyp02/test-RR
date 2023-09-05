@@ -1,7 +1,7 @@
 project_id = "propane-dogfish-395916"
 region     = "us-central1"
 network    = "https://www.googleapis.com/compute/v1/projects/propane-dogfish-395916/global/networks/default"
-# subnet_link      = "https://www.googleapis.com/compute/v1/projects/propane-dogfish-395916/regions/us-central1/subnetworks/global/networks/default"
+subnet_link      = "https://www.googleapis.com/compute/v1/projects/propane-dogfish-395916/regions/us-central1/subnetworks/global/networks/default"
 database_version = "POSTGRES_14"
 tier             = "db-custom-2-4096"
 machine_type     = "e2-micro"

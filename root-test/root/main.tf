@@ -2,10 +2,10 @@ module "cloudsql_postgres_sync_test" {
   source     = "../../child/master"
   project_id = var.project_id
   region     = var.region
-    # network            = var.network
+  # network            = var.network
   zone             = var.zones[0]
   database_version = var.database_version
-  #   proxy_subnet     = var.subnet_link
+  # proxy_subnet                       = var.subnet_link
   tier                               = var.tier
   identifier                         = "03"
   additional_access_service_accounts = ["sa-proj-default@${var.project_id}.iam.gserviceaccount.com"]
@@ -29,7 +29,7 @@ module "cloudsql_postgres_sync_test" {
 
 
 module "cloudsql_postgres_rr_test" {
-  source                   = "../../child/readreplica"
+  source                   = "../../child/readreplica-child"
   project_id               = var.project_id
   region                   = var.region
   zone                     = var.zones[0]
@@ -38,4 +38,16 @@ module "cloudsql_postgres_rr_test" {
   tier                     = var.tier
   read_replicas            = var.read_replicas
   read_replica_name_suffix = var.read_replica_name_suffix
+}
+
+module "cloud_sql_proxy" {
+  source     = "../../child/proxy"
+  project_id = var.project_id
+  region     = var.region
+  zone       = var.zones[0]
+  proxy_subnet      = var.subnet_link
+  user_labels       = var.user_labels
+  sql_instance_name = module.cloudsql_postgres_sync_test.instance_name
+  connection_name   = module.cloudsql_postgres_sync_test.connection_namename
+
 }
